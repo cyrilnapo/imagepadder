@@ -15,7 +15,6 @@
       </div>
     </div>
 
-    <button @click="downloadImage">Télécharger l'image</button>
   </div>
 
   <div v-if="image" class="controls">
@@ -47,10 +46,11 @@
         <input type="number" min="0" max="500" v-model="padding.left" />
       </div>
     </div>
-
-    <button @click="togglePaddingMode">
+    <button class="modeChange" @click="togglePaddingMode">
       {{ independentPadding ? 'Passer en mode uniforme' : 'Passer en mode individuel' }}
     </button>
+    <button class="btnDownload" @click="downloadImage">Télécharger l'image</button>
+
   </div>
 </template>
 
@@ -168,6 +168,7 @@ img {
 }
 
 .controls {
+  align-items: center;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -185,9 +186,24 @@ img {
 }
 
 button {
-  margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
+}
+
+.btnDownload {
+  background-color: #4c8baf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modeChange {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 input[type="number"] {
