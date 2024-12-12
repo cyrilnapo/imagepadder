@@ -2,7 +2,7 @@
   <div class="app">
     <h1>Image Padding Tool</h1>
 
-    <input type="file" accept="image/*" @change="handleImageUpload" />
+    <input v-if="!image" type="file" accept="image/*" @change="handleImageUpload" />
 
     <div v-if="image" class="image-container">
       <div
@@ -14,7 +14,6 @@
         <img :src="image" ref="imageElement" @load="updateImageDimensions" />
       </div>
     </div>
-
   </div>
 
   <div v-if="image" class="controls">
@@ -50,7 +49,6 @@
       {{ independentPadding ? 'Passer en mode uniforme' : 'Passer en mode individuel' }}
     </button>
     <button class="btnDownload" @click="downloadImage">Télécharger l'image</button>
-
   </div>
 </template>
 
@@ -84,7 +82,6 @@ export default {
       const imgElement = this.$refs.imageElement;
       this.imageDimensions.width = imgElement.naturalWidth;
       this.imageDimensions.height = imgElement.naturalHeight;
-      console.log("Image dimensions:", this.imageDimensions);
     },
     syncPadding() {
       this.padding.top = this.padding.all;
@@ -113,8 +110,6 @@ export default {
       const width = Number(this.imageDimensions.width) + Number(this.padding.left) + Number(this.padding.right);
       const height = Number(this.imageDimensions.height) + Number(this.padding.top) + Number(this.padding.bottom);
 
-      console.log("Canvas dimensions:", { width, height });
-
       canvas.width = width;
       canvas.height = height;
 
@@ -136,8 +131,6 @@ export default {
           a.download = "image_with_padding.png";
           a.click();
           URL.revokeObjectURL(url);
-        } else {
-          console.error("Failed to create blob. Canvas drawing might have failed.");
         }
       });
     },
