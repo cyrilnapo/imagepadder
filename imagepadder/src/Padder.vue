@@ -1,7 +1,5 @@
 <template>
   <div class="app">
-    <h1>Image Padding Tool</h1>
-
     <input v-if="!image" type="file" accept="image/*" @change="handleImageUpload" />
 
     <div v-if="image" class="image-container">
