@@ -15,42 +15,42 @@
       </div>
     </div>
 
-    <div v-if="image" class="controls">
-      <div v-if="!independentPadding">
-        <label>Padding uniforme: {{ padding.all }}</label>
-        <input type="range" min="0" max="300" v-model="padding.all" @input="syncPadding" />
-        <input type="number" min="0" max="300" v-model="padding.all" @input="syncPadding" />
-      </div>
+    <button @click="downloadImage">Télécharger l'image</button>
+  </div>
 
-      <div v-if="independentPadding">
-        <div>
-          <label>Top: {{ padding.top }}</label>
-          <input type="range" min="0" max="300" v-model="padding.top" />
-          <input type="number" min="0" max="300" v-model="padding.top" />
-        </div>
-        <div>
-          <label>Right: {{ padding.right }}</label>
-          <input type="range" min="0" max="300" v-model="padding.right" />
-          <input type="number" min="0" max="300" v-model="padding.right" />
-        </div>
-        <div>
-          <label>Bottom: {{ padding.bottom }}</label>
-          <input type="range" min="0" max="300" v-model="padding.bottom" />
-          <input type="number" min="0" max="300" v-model="padding.bottom" />
-        </div>
-        <div>
-          <label>Left: {{ padding.left }}</label>
-          <input type="range" min="0" max="300" v-model="padding.left" />
-          <input type="number" min="0" max="300" v-model="padding.left" />
-        </div>
-      </div>
-
-      <button @click="togglePaddingMode">
-        {{ independentPadding ? 'Passer en mode uniforme' : 'Passer en mode individuel' }}
-      </button>
+  <div v-if="image" class="controls">
+    <div v-if="!independentPadding">
+      <label>Padding uniforme: {{ padding.all }}</label>
+      <input type="range" min="0" max="500" v-model="padding.all" @input="syncPadding" />
+      <input type="number" min="0" max="500" v-model="padding.all" @input="syncPadding" />
     </div>
 
-    <button @click="downloadImage">Télécharger l'image</button>
+    <div v-if="independentPadding">
+      <div>
+        <label>Top: {{ padding.top }}</label>
+        <input type="range" min="0" max="500" v-model="padding.top" />
+        <input type="number" min="0" max="500" v-model="padding.top" />
+      </div>
+      <div>
+        <label>Right: {{ padding.right }}</label>
+        <input type="range" min="0" max="500" v-model="padding.right" />
+        <input type="number" min="0" max="500" v-model="padding.right" />
+      </div>
+      <div>
+        <label>Bottom: {{ padding.bottom }}</label>
+        <input type="range" min="0" max="500" v-model="padding.bottom" />
+        <input type="number" min="0" max="500" v-model="padding.bottom" />
+      </div>
+      <div>
+        <label>Left: {{ padding.left }}</label>
+        <input type="range" min="0" max="500" v-model="padding.left" />
+        <input type="number" min="0" max="500" v-model="padding.left" />
+      </div>
+    </div>
+
+    <button @click="togglePaddingMode">
+      {{ independentPadding ? 'Passer en mode uniforme' : 'Passer en mode individuel' }}
+    </button>
   </div>
 </template>
 
@@ -149,6 +149,7 @@ export default {
 .app {
   text-align: center;
   padding: 20px;
+  padding-bottom: 120px;
 }
 
 .image-container {
@@ -167,7 +168,20 @@ img {
 }
 
 .controls {
-  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 button {
