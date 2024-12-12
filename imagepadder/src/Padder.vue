@@ -150,8 +150,9 @@ export default {
 
 .image-wrapper {
   display: inline-block;
-  border: 2px dashed rgb(51, 164, 184);
+  border: 1px solid rgb(255, 145, 0);
   padding: 0; 
+  background-color: rgba(255, 145, 0, 0.041);
 }
 
 img {
