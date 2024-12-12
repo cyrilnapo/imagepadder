@@ -156,7 +156,7 @@ export default {
 
 img {
   display: block;
-  max-width: 100%;
+  max-width: 450px;
   padding: 0;
 }
 
@@ -201,7 +201,7 @@ button {
 }
 
 input[type="number"] {
-  width: 60px;
+  width: 50px;
   margin-left: 10px;
 }
 
