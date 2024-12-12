@@ -209,4 +209,21 @@ input[type="range"] {
   width: 100px;
   margin-left: 10px;
 }
+
+input[type="file"] {
+  display: block;
+  margin: auto;
+  padding: 100px 150px;
+  border: 2px dashed #4c8baf;
+  border-radius: 25px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 </style>
