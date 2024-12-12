@@ -149,14 +149,17 @@ export default {
 }
 
 .image-wrapper {
-  background-color: rgba(0, 0, 0, 0.1);
   display: inline-block;
+  border: 2px dashed rgb(51, 164, 184);
+  padding: 0; 
 }
 
 img {
   display: block;
   max-width: 100%;
+  padding: 0;
 }
+
 
 .controls {
   align-items: center;
