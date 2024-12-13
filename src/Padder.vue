@@ -1,6 +1,8 @@
 <template>
   <div class="app">
-    <input v-if="!image" type="file" accept="image/*" @change="handleImageUpload" />
+    <div v-if="!image" class="input">
+      <input v-if="!image" type="file" id="upload" accept="image/*" @change="handleImageUpload" />
+    </div>
 
     <div v-if="image" class="image-container-wrapper">
       <div class="image-container">
@@ -58,6 +60,7 @@ export default {
   data() {
     return {
       image: null,
+      fileName: null,
       imageDimensions: {
         width: 0,
         height: 0,
@@ -73,10 +76,12 @@ export default {
       independentPadding: false,
     };
   },
+
   methods: {
     handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
+        this.fileName = file.name.split('.').slice(0, -1).join('.'); // Supprime l'extension
         this.image = URL.createObjectURL(file);
       }
     },
@@ -133,7 +138,10 @@ export default {
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = "image_with_padding.png";
+
+          const fileName = this.fileName ? `${this.fileName}_with-padding.png` : "image_with-padding.png";
+          a.download = fileName;
+
           a.click();
           URL.revokeObjectURL(url);
         }
@@ -148,10 +156,15 @@ export default {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+body {
+  background-color: #121212;
+}
+
 .app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 20px;
-  padding-bottom: 120px;
 }
 
 .image-container-wrapper {
@@ -231,19 +244,64 @@ input[type="range"] {
   margin-left: 10px;
 }
 
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: calc(50vh - 90px);
+  background-color: #f8f8f8;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
 input[type="file"] {
-  display: block;
-  margin: auto;
-  padding: 100px 150px;
-  border: 2px dashed #4c8baf;
-  border-radius: 25px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
+  position: relative;
+  color: black;
+}
+
+input[type="file"]::file-selector-button {
+  width: 121px;
+  color: transparent;
+}
+
+input[type="file"]::before {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  pointer-events: none;
+  top: 10px;
+  left: 16px;
+  height: 20px;
+  width: 20px;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9100'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+}
+
+input[type="file"]::after {
+  position: absolute;
+  pointer-events: none;
+  top: 11px;
+  left: 40px;
+  color: rgb(255, 145, 0);
+  content: "Upload File";
+}
+
+input[type="file"]::file-selector-button {
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+input[type="file"]::file-selector-button:active {
+  background-color: #ebe9e5;
 }
 </style>
