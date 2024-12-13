@@ -137,6 +137,9 @@ export default {
 </script>
 
 <style>
+*{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 .app {
   text-align: center;
   padding: 20px;
