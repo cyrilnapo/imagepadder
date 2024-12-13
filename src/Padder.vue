@@ -159,6 +159,8 @@ img {
   display: block;
   max-width: 450px;
   padding: 0;
+  border: 1px solid rgb(255, 145, 0);
+  background-color: rgb(255, 255, 255);
 }
 
 
