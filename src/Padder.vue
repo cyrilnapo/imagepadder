@@ -13,12 +13,15 @@
     </div>
   </div>
 
-
   <div v-if="image" class="controls">
     <div v-if="!independentPadding">
-      <label>Padding uniforme: {{ padding.all }}</label>
-      <input type="range" min="0" max="500" v-model="padding.all" @input="syncPadding" />
-      <input type="number" min="0" max="500" v-model="padding.all" @input="syncPadding" />
+      <label>Horizontal : </label>
+      <input type="range" min="0" max="500" v-model="padding.horizontal" @input="syncHorizontalPadding" />
+      <input type="number" min="0" max="500" v-model="padding.horizontal" @input="syncHorizontalPadding" />
+      <br>
+      <label>Vertical : </label>
+      <input type="range" min="0" max="500" v-model="padding.vertical" @input="syncVerticalPadding" />
+      <input type="number" min="0" max="500" v-model="padding.vertical" @input="syncVerticalPadding" />
     </div>
 
     <div v-if="independentPadding">
@@ -64,7 +67,8 @@ export default {
         right: 0,
         bottom: 0,
         left: 0,
-        all: 0,
+        horizontal: 0,
+        vertical: 0,
       },
       independentPadding: false,
     };
@@ -81,18 +85,21 @@ export default {
       this.imageDimensions.width = imgElement.naturalWidth;
       this.imageDimensions.height = imgElement.naturalHeight;
     },
-    syncPadding() {
-      this.padding.top = this.padding.all;
-      this.padding.right = this.padding.all;
-      this.padding.bottom = this.padding.all;
-      this.padding.left = this.padding.all;
+    syncHorizontalPadding() {
+      this.padding.left = this.padding.horizontal;
+      this.padding.right = this.padding.horizontal;
+    },
+    syncVerticalPadding() {
+      this.padding.top = this.padding.vertical;
+      this.padding.bottom = this.padding.vertical;
     },
     togglePaddingMode() {
       this.independentPadding = !this.independentPadding;
-
       if (!this.independentPadding) {
-        this.padding.all = this.padding.top;
-        this.syncPadding();
+        this.padding.horizontal = this.padding.left;
+        this.padding.vertical = this.padding.top;
+        this.syncHorizontalPadding();
+        this.syncVerticalPadding();
       }
     },
     downloadImage() {
@@ -160,7 +167,6 @@ export default {
   text-align: center;
 }
 
-
 .image-wrapper {
   display: inline-block;
   border: 1px solid rgb(255, 145, 0);
@@ -175,7 +181,6 @@ img {
   border: 1px solid rgb(255, 145, 0);
   background-color: rgb(255, 255, 255);
 }
-
 
 .controls {
   align-items: center;
@@ -222,7 +227,7 @@ input[type="number"] {
 }
 
 input[type="range"] {
-  width: 100px;
+  width: 200px;
   margin-left: 10px;
 }
 
