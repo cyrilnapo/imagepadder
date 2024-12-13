@@ -2,17 +2,17 @@
   <div class="app">
     <input v-if="!image" type="file" accept="image/*" @change="handleImageUpload" />
 
-    <div v-if="image" class="image-container">
-      <div
-        class="image-wrapper"
-        :style="{
+    <div v-if="image" class="image-container-wrapper">
+      <div class="image-container">
+        <div class="image-wrapper" :style="{
           padding: `${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px`
-        }"
-      >
-        <img :src="image" ref="imageElement" @load="updateImageDimensions" />
+        }">
+          <img :src="image" ref="imageElement" @load="updateImageDimensions" />
+        </div>
       </div>
     </div>
   </div>
+
 
   <div v-if="image" class="controls">
     <div v-if="!independentPadding">
@@ -137,30 +137,40 @@ export default {
 </script>
 
 <style>
-*{
+* {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .app {
   text-align: center;
   padding: 20px;
   padding-bottom: 120px;
 }
 
-.image-container {
-  display: inline-block;
-  position: relative;
+.image-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 250px);
 }
+
+.image-container {
+  max-width: 100%;
+  text-align: center;
+}
+
 
 .image-wrapper {
   display: inline-block;
   border: 1px solid rgb(255, 145, 0);
-  padding: 0; 
+  padding: 0;
   background-color: rgba(255, 145, 0, 0.041);
 }
 
 img {
   display: block;
-  max-width: 450px;
+  max-width: 300px;
   padding: 0;
   border: 1px solid rgb(255, 145, 0);
   background-color: rgb(255, 255, 255);
@@ -231,5 +241,4 @@ input[type="file"] {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 </style>
