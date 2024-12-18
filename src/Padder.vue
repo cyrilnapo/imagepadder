@@ -8,8 +8,10 @@
       <div class="image-container">
         <div class="image-wrapper" :style="{
           padding: `${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px`
-        }">
-          <img :src="image" ref="imageElement" @load="updateImageDimensions" />
+        }"
+        @mousemove="checkCursorPosition"
+        @mouseleave="resetCursor">
+          <img style="pointer-events: none;" :src="image" ref="imageElement" @load="updateImageDimensions" />
         </div>
       </div>
     </div>
@@ -56,7 +58,39 @@
 </template>
 
 <script>
+import { useMouse } from '@vueuse/core';
+
 export default {
+  setup() {
+    const { x, y } = useMouse();
+
+    const checkCursorPosition = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const edgeThreshold = 15;
+
+      const isNearLeftEdge = x.value <= rect.left + edgeThreshold;
+      const isNearRightEdge = x.value >= rect.right - edgeThreshold;
+      const isNearTopEdge = y.value <= rect.top + edgeThreshold;
+      const isNearBottomEdge = y.value >= rect.bottom - edgeThreshold;
+
+      if (isNearLeftEdge || isNearRightEdge) {
+        event.currentTarget.style.cursor = 'e-resize';
+      } else if (isNearTopEdge || isNearBottomEdge) {
+        event.currentTarget.style.cursor = 'n-resize';
+      } else {
+        event.currentTarget.style.cursor = 'default';
+      }
+    };
+
+    const resetCursor = (event) => {
+      event.currentTarget.style.cursor = 'default';
+    };
+
+    return {
+      checkCursorPosition,
+      resetCursor,
+    };
+  },
   data() {
     return {
       image: null,
